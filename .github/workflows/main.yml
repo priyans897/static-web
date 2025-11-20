@@ -1,4 +1,4 @@
-name: Deploy Static Site
+name: Test Workflow
 
 on:
   push:
@@ -6,17 +6,16 @@ on:
       - main
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          script: |
-            bash /home/azureuser/deploy.sh
+      - name: Run Test Script
+        run: |
+          echo "🎉 Workflow is working!"
+          echo "Current directory:"
+          pwd
+          echo "Files:"
+          ls -la
