@@ -1,11 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Roht's Realm</title>
+  <style>
+    body {
+      background-color: #fef3bd;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #ff6347;
+      font-size: 3em;
+      animation: wiggle 1s infinite;
+    }
+    @keyframes wiggle {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(3deg); }
+      50% { transform: rotate(-3deg); }
+      75% { transform: rotate(3deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .joke-box {
+      background-color: #fff;
+      border: 2px dashed #ff6347;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e5533d;
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello roht</h1>
+  <h1>Hello Roht! 👋</h1>
+  <p>Welcome to the silliest corner of the internet. Proceed with caution: laughter ahead!</p>
+
+  <div class="joke-box">
+    <p id="joke">Why don't scientists trust atoms? Because they make up everything!</p>
+    <button onclick="newJoke()">Tell me another!</button>
+  </div>
+
+  <script>
+    const jokes = [
+      "Why don't scientists trust atoms? Because they make up everything!",
+      "Why did the scarecrow win an award? Because he was outstanding in his field!",
+      "Why don’t skeletons fight each other? They don’t have the guts.",
+      "I told my computer I needed a break, and now it won’t stop sending me KitKat ads.",
+      "Parallel lines have so much in common… it’s a shame they’ll never meet."
+    ];
+
+    function newJoke() {
+      const joke = jokes[Math.floor(Math.random() * jokes.length)];
+      document.getElementById("joke").textContent = joke;
+    }
+  </script>
 </body>
 </html>
