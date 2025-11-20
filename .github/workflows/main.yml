@@ -1,4 +1,4 @@
-name: Deploy Static HTML Site
+name: Deploy Static Site
 
 on:
   push:
@@ -10,19 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Upload HTML Files to VM
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          source: "./*"
-          target: "/home/azureuser/app_build"
-
-      - name: Run Deployment Script on VM
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.VM_HOST }}
