@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SECURE ACCESS PROTOCOL v4.1 (MILDLY INSECURE)</title>
+    <title>SECURE ACCESS PROTOCOL v4.2 (Now with More Cowbell)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for the terminal aesthetic */
@@ -32,6 +32,20 @@
             margin-left: 2px;
             animation: blink 1s step-end infinite;
             vertical-align: middle;
+        }
+        
+        /* DANCE PARTY effect */
+        @keyframes rainbow-text {
+            0% { color: #ff0041; }
+            25% { color: #00ff41; }
+            50% { color: #00ffff; }
+            75% { color: #ffcc00; }
+            100% { color: #ff0041; }
+        }
+        .dance-party {
+            animation: rainbow-text 1s linear infinite;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
         /* Styling for the main log output area */
@@ -64,30 +78,10 @@
         .log-info {
             color: #ffcc00; /* Yellow for informational messages */
         }
-        /* New: for exceptionally silly messages */
+        /* Updated: Orange for maximum silliness */
         .log-silly {
             color: #ff8c00; /* Orange for silly messages */
             font-style: italic;
-        }
-
-        /* Input command line styling */
-        .command-line-container {
-            padding: 1rem;
-            border-top: 1px solid rgba(0, 255, 65, 0.2);
-            flex-shrink: 0;
-        }
-        #command-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #00ff41;
-            outline: none;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-        .prompt {
-            color: #00ff41;
-            padding-right: 0.5rem;
         }
     </style>
 </head>
@@ -102,24 +96,24 @@
         <pre class="log-line text-xs log-info">
 /////////////////////////////////////////////////////////////////////////
 //                                                                     //
-//        Initializing SECURE Protocol Engine v4.1.0 (MILDLY CAUTIOUS) //
-//        Authorizing connection via remote terminal access...           //
+//        Booting SECURE Protocol Engine v4.2.0 (Powered by Snax)      //
+//        Warning: System integrity relies heavily on local snacks.    //
 //                                                                     //
 /////////////////////////////////////////////////////////////////////////
         </pre>
-        <pre class="log-line">>>> 08:31:01 -- SYSTEM -- Boot sequence initiated. Coffee status: Critical.</pre>
+        <pre class="log-line">>>> 08:31:01 -- SYSTEM -- Boot sequence initiated. Coffee status: Critical (Need more milk).</pre>
     </div>
 
     <div class="command-line-container">
         <div class="flex items-center">
             <span class="prompt text-lg font-bold">[USER@TERMINAL] $</span>
-            <input type="text" id="command-input" placeholder="Type command here..." autofocus>
+            <input type="text" id="command-input" placeholder="Try 'help' or 'dance_party'..." autofocus>
             <span class="cursor"></span>
         </div>
     </div>
 
     <script>
-        // Global variables for Firebase setup (required for Canvas environment)
+        // Global variables remain (though not strictly necessary for this sandbox)
         const __app_id = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const __firebase_config = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
         const __initial_auth_token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : undefined;
@@ -128,24 +122,27 @@
         const systemStatus = document.getElementById('system-status');
         const timeDisplay = document.getElementById('time-display');
         const commandInput = document.getElementById('command-input');
+        const body = document.body;
 
         let logCount = 0;
-        // 🚨 FUNNY LOG MESSAGES 🚨
+        let isDancing = false;
+        
+        // 🚨 CRANKING UP THE FUNNY 🚨
         const logMessages = [
-            { type: 'info', msg: 'Checking network topology... Found a suspicious number of cat videos.' },
-            { type: 'info', msg: 'Compiling core data modules... Complete (but might need a reboot later, just a hunch).' },
-            { type: 'success', msg: 'AUTHENTICATION MODULE: User session validated. Access granted. Remember your password next time.' },
-            { type: 'error', msg: 'WARNING: Connection instability detected. Retrying handshake... Target keeps sending "u up?" messages.' },
-            { type: 'info', msg: 'Executing data stream pre-fetch. Target: /tmp/cache_0x9f0e. Donut count: 3 remaining.' },
-            { type: 'info', msg: 'System integrity check (CRC-32)... Running. Currently procrastinating.' },
-            { type: 'success', msg: 'System integrity check (CRC-32)... PASSED. Phew.' },
-            { type: 'info', msg: 'Loading encrypted kernel extension 0xEE7F... It looks important, don\'t touch it.' },
-            { type: 'silly', msg: 'Pinging remote server 192.168.1.254... Response time: 4ms. Server politely waved back.' },
-            { type: 'info', msg: 'Processing stream data chunk 12/45... It seems to be a recipe for artisanal sourdough.' },
-            { type: 'error', msg: 'ACCESS DENIED to resource /etc/shadow. Permission 700 required. You are not root, Kyle.' },
-            { type: 'success', msg: 'Data synchronization successful. Hash: 8b3c1a2d. The cake is not a lie.' },
-            { type: 'info', msg: 'Initiating deep packet inspection on port 22... Looks like someone is downloading an entire Wikipedia archive.' },
-            { type: 'info', msg: 'Memory usage: 78% | CPU load: 45%. Thermal regulators humming a catchy tune.' }
+            { type: 'info', msg: 'Checking network topology... Found a suspicious number of cat videos. Priorities set.' },
+            { type: 'info', msg: 'Compiling core data modules... Complete (Error 404: Motivation not found).' },
+            { type: 'success', msg: 'AUTHENTICATION MODULE: User session validated. Access granted. Did you remember to save?' },
+            { type: 'error', msg: 'WARNING: Connection instability detected. Retrying handshake... Target keeps sending "u up?" messages and potato memes.' },
+            { type: 'info', msg: 'Executing data stream pre-fetch. Target: /tmp/cache_0x9f0e. Donut count: 3 remaining. Requesting backup snacks.' },
+            { type: 'silly', msg: 'System integrity check (CRC-32)... Running. Listening to smooth jazz for stabilization.' },
+            { type: 'success', msg: 'System integrity check (CRC-32)... PASSED. Certificate of mediocrity acquired.' },
+            { type: 'info', msg: 'Loading encrypted kernel extension 0xEE7F... It looks important, don\'t touch it. Unless you brought cookies.' },
+            { type: 'silly', msg: 'Pinging remote server 192.168.1.254... Response time: 4ms. Server politely waved back, then asked for a byte.' },
+            { type: 'info', msg: 'Processing stream data chunk 12/45... It seems to be a recipe for artisanal sourdough. High priority.' },
+            { type: 'error', msg: 'ACCESS DENIED to resource /etc/shadow. Permission 700 required. You are not root, Kyle. Stop trying.' },
+            { type: 'success', msg: 'Data synchronization successful. Hash: 8b3c1a2d. The cake is, in fact, still working.' },
+            { type: 'info', msg: 'Initiating deep packet inspection on port 22... Looks like someone is downloading an entire Wikipedia archive. And knitting instructions.' },
+            { type: 'info', msg: 'Memory usage: 78% | CPU load: 45%. Thermal regulators humming a catchy tune. (Currently: "Never Gonna Give You Up").' }
         ];
 
         /**
@@ -162,7 +159,7 @@
 
             // Create the log line element
             const pre = document.createElement('pre');
-            pre.className = `log-line text-xs log-${type}`;
+            pre.className = `log-line text-xs log-${type} ${isDancing ? 'dance-party' : ''}`;
             pre.textContent = `>>> ${timeStr} -- ${type.toUpperCase()} -- ${msg}`;
 
             // Append to the log output
@@ -178,7 +175,7 @@
 
             logCount++;
             if (logCount > 10) {
-                systemStatus.textContent = 'STATUS: ONLINE // ENCRYPTED // CAFFEINE DEPLETED';
+                systemStatus.textContent = 'STATUS: ONLINE // ENCRYPTED // CAFFEINE DEPLETED // 80% FUNNY';
             }
         }
 
@@ -190,6 +187,29 @@
             const timeStr = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
             timeDisplay.textContent = `TIME: ${timeStr} (UTC+0)`;
         }
+        
+        /**
+         * Toggles the ridiculous "Dance Party" mode.
+         */
+        function toggleDanceParty() {
+            isDancing = !isDancing;
+            body.classList.toggle('dance-party');
+            systemStatus.classList.toggle('dance-party');
+            timeDisplay.classList.toggle('dance-party');
+            commandInput.classList.toggle('dance-party');
+
+            const responseType = isDancing ? 'silly' : 'success';
+            const responseMsg = isDancing 
+                ? 'DANCE_PARTY ACTIVATED! Initiate full RGB spectrum scan and bass drop. 🕺💻'
+                : 'DANCE_PARTY DEACTIVATED. Returning to serious, gloomy terminal mode. *sigh*';
+            
+            const preResponse = document.createElement('pre');
+            preResponse.className = `log-line text-sm log-${responseType}`;
+            preResponse.textContent = `[SYSTEM RESPONSE] ${responseMsg}`;
+            logOutput.appendChild(preResponse);
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+
 
         /**
          * Handles the command input logic (simulates execution with funny responses).
@@ -210,38 +230,42 @@
                     // Simulate a response
                     let responseMsg = `Command '${command}' executed successfully. Not sure what it did, but the lights blinked.`;
                     let responseType = 'success';
+                    const lowerCommand = command.toLowerCase();
 
-                    if (command.toLowerCase().includes('help')) {
-                        responseMsg = 'Available commands: scan, connect, decrypt, status, clear. Also try: "order_pizza", "tell_joke".';
+                    if (lowerCommand.includes('help')) {
+                        responseMsg = 'Available commands: scan, connect, decrypt, status, clear. Also try: "order_pizza", "tell_joke", or the secret command: "dance_party".';
                         responseType = 'info';
-                    } else if (command.toLowerCase().includes('clear')) {
+                    } else if (lowerCommand.includes('dance_party')) {
+                        toggleDanceParty();
+                        return; // Exit function so we don't double-log
+                    } else if (lowerCommand.includes('clear')) {
                         // Clear the log, keeping the initial header
                         while (logOutput.children.length > 2) {
                             logOutput.removeChild(logOutput.children[2]);
                         }
-                        responseMsg = 'Terminal cleared. All evidence... gone. (Just kidding, it\'s logged on 3 servers.)';
+                        responseMsg = 'Terminal cleared. All evidence... gone. (Just kidding, it\'s logged on 3 servers and the local refrigerator).';
                         responseType = 'info';
-                    } else if (command.toLowerCase().includes('fail')) {
-                        responseMsg = 'ERROR 502: Connection refused by target server. Did you try turning it off and on again?';
+                    } else if (lowerCommand.includes('fail')) {
+                        responseMsg = 'ERROR 502: Connection refused by target server. Did you try turning it off and on again? Also, check your socks.';
                         responseType = 'error';
-                    } else if (command.toLowerCase().includes('scan')) {
-                        responseMsg = 'Scanning local network... Found 12 devices. Also detected 4 containers of expired yogurt and a suspicious-looking garden gnome.';
+                    } else if (lowerCommand.includes('scan')) {
+                        responseMsg = 'Scanning local network... Found 12 devices. Also detected 4 containers of expired yogurt and a suspicious-looking garden gnome. He is watching.';
                         responseType = 'info';
-                    } else if (command.toLowerCase().includes('decrypt')) {
-                        responseMsg = 'Initiating decryption protocol... Password hint: It\'s your dog\'s name... but backward.';
+                    } else if (lowerCommand.includes('decrypt')) {
+                        responseMsg = 'Initiating decryption protocol... Password hint: It\'s your dog\'s name... but backward. If you don\'t have a dog, try "admin123".';
                         responseType = 'info';
-                    } else if (command.toLowerCase().includes('order_pizza')) {
-                        responseMsg = 'ORDERING PIZZA: Sending request to Dominos. Estimated arrival: T+30 minutes. Status: Thin crust, extra cheese.';
+                    } else if (lowerCommand.includes('order_pizza')) {
+                        responseMsg = 'ORDERING PIZZA: Sending request to Dominos. Estimated arrival: T+30 minutes. Status: Thin crust, extra cheese. (Payment details pending, hurry up!)';
                         responseType = 'silly';
-                    } else if (command.toLowerCase().includes('tell_joke')) {
-                        responseMsg = 'Why did the programmer quit his job? Because he didn\'t get arrays.';
+                    } else if (lowerCommand.includes('tell_joke')) {
+                        responseMsg = 'Why did the programmer quit his job? Because he didn\'t get arrays. (Press F to pay respects to the pun.)';
                         responseType = 'silly';
-                    } else if (command.toLowerCase().includes('status')) {
-                        responseMsg = 'STATUS: System Nominal. Operator Alertness: Low. Threat Level: None (except for the expired yogurt).';
+                    } else if (lowerCommand.includes('status')) {
+                        responseMsg = 'STATUS: System Nominal. Operator Alertness: Low (Suggest 30 min nap). Threat Level: Minimal (only 1 unpatched zero-day vulnerability).';
                         responseType = 'success';
                     } else {
                         // Default response for unrecognized commands
-                        responseMsg = `Command '${command}' not found. Are you sure you're not just mashing the keyboard? Try 'help'.`;
+                        responseMsg = `Command '${command}' not found. Did you mean 'sudo make me a sandwich'? Try 'help'.`;
                         responseType = 'error';
                     }
 
