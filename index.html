@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SECURE ACCESS PROTOCOL v4.1</title>
-    <!-- Load Tailwind CSS -->
+    <title>SECURE ACCESS PROTOCOL v4.1 (MILDLY INSECURE)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for the terminal aesthetic */
@@ -65,6 +64,11 @@
         .log-info {
             color: #ffcc00; /* Yellow for informational messages */
         }
+        /* New: for exceptionally silly messages */
+        .log-silly {
+            color: #ff8c00; /* Orange for silly messages */
+            font-style: italic;
+        }
 
         /* Input command line styling */
         .command-line-container {
@@ -89,27 +93,23 @@
 </head>
 <body class="antialiased">
 
-    <!-- Terminal Header / Status Bar -->
     <div class="p-3 bg-black text-xs border-b border-green-700/50 flex justify-between flex-shrink-0">
         <span id="system-status">STATUS: INITIALIZING...</span>
         <span id="time-display"></span>
     </div>
 
-    <!-- Main Log Output Area -->
     <div id="log-output">
-        <!-- Initial system boot message -->
         <pre class="log-line text-xs log-info">
-        /////////////////////////////////////////////////////////////////////////
-        //                                                                     //
-        //          Initializing Secure Protocol Engine v4.1.0 (BETA)          //
-        //          Authorizing connection via remote terminal access...       //
-        //                                                                     //
-        /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+//                                                                     //
+//        Initializing SECURE Protocol Engine v4.1.0 (MILDLY CAUTIOUS) //
+//        Authorizing connection via remote terminal access...           //
+//                                                                     //
+/////////////////////////////////////////////////////////////////////////
         </pre>
-        <pre class="log-line">>>> 08:31:01 -- SYSTEM -- Boot sequence initiated.</pre>
+        <pre class="log-line">>>> 08:31:01 -- SYSTEM -- Boot sequence initiated. Coffee status: Critical.</pre>
     </div>
 
-    <!-- Command Input Area -->
     <div class="command-line-container">
         <div class="flex items-center">
             <span class="prompt text-lg font-bold">[USER@TERMINAL] $</span>
@@ -120,7 +120,6 @@
 
     <script>
         // Global variables for Firebase setup (required for Canvas environment)
-        // These are intentionally left as empty strings/default values as per instructions
         const __app_id = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const __firebase_config = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
         const __initial_auth_token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : undefined;
@@ -131,21 +130,22 @@
         const commandInput = document.getElementById('command-input');
 
         let logCount = 0;
+        // 🚨 FUNNY LOG MESSAGES 🚨
         const logMessages = [
-            { type: 'info', msg: 'Checking network topology... OK' },
-            { type: 'info', msg: 'Compiling core data modules... Complete' },
-            { type: 'success', msg: 'AUTHENTICATION MODULE: User session validated. Access granted.' },
-            { type: 'error', msg: 'WARNING: Connection instability detected. Retrying handshake...' },
-            { type: 'info', msg: 'Executing data stream pre-fetch. Target: /tmp/cache_0x9f0e' },
-            { type: 'info', msg: 'System integrity check (CRC-32)... Running' },
-            { type: 'success', msg: 'System integrity check (CRC-32)... PASSED' },
-            { type: 'info', msg: 'Loading encrypted kernel extension 0xEE7F...' },
-            { type: 'info', msg: 'Pinging remote server 192.168.1.254... Response time: 4ms' },
-            { type: 'info', msg: 'Processing stream data chunk 12/45...' },
-            { type: 'error', msg: 'ACCESS DENIED to resource /etc/shadow. Permission 700 required.' },
-            { type: 'success', msg: 'Data synchronization successful. Hash: 8b3c1a2d' },
-            { type: 'info', msg: 'Initiating deep packet inspection on port 22...' },
-            { type: 'info', msg: 'Memory usage: 78% | CPU load: 45%' }
+            { type: 'info', msg: 'Checking network topology... Found a suspicious number of cat videos.' },
+            { type: 'info', msg: 'Compiling core data modules... Complete (but might need a reboot later, just a hunch).' },
+            { type: 'success', msg: 'AUTHENTICATION MODULE: User session validated. Access granted. Remember your password next time.' },
+            { type: 'error', msg: 'WARNING: Connection instability detected. Retrying handshake... Target keeps sending "u up?" messages.' },
+            { type: 'info', msg: 'Executing data stream pre-fetch. Target: /tmp/cache_0x9f0e. Donut count: 3 remaining.' },
+            { type: 'info', msg: 'System integrity check (CRC-32)... Running. Currently procrastinating.' },
+            { type: 'success', msg: 'System integrity check (CRC-32)... PASSED. Phew.' },
+            { type: 'info', msg: 'Loading encrypted kernel extension 0xEE7F... It looks important, don\'t touch it.' },
+            { type: 'silly', msg: 'Pinging remote server 192.168.1.254... Response time: 4ms. Server politely waved back.' },
+            { type: 'info', msg: 'Processing stream data chunk 12/45... It seems to be a recipe for artisanal sourdough.' },
+            { type: 'error', msg: 'ACCESS DENIED to resource /etc/shadow. Permission 700 required. You are not root, Kyle.' },
+            { type: 'success', msg: 'Data synchronization successful. Hash: 8b3c1a2d. The cake is not a lie.' },
+            { type: 'info', msg: 'Initiating deep packet inspection on port 22... Looks like someone is downloading an entire Wikipedia archive.' },
+            { type: 'info', msg: 'Memory usage: 78% | CPU load: 45%. Thermal regulators humming a catchy tune.' }
         ];
 
         /**
@@ -178,7 +178,7 @@
 
             logCount++;
             if (logCount > 10) {
-                systemStatus.textContent = 'STATUS: ONLINE // ENCRYPTED';
+                systemStatus.textContent = 'STATUS: ONLINE // ENCRYPTED // CAFFEINE DEPLETED';
             }
         }
 
@@ -192,7 +192,7 @@
         }
 
         /**
-         * Handles the command input logic (just simulates execution).
+         * Handles the command input logic (simulates execution with funny responses).
          */
         commandInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
@@ -208,25 +208,41 @@
                     logOutput.appendChild(preCommand);
 
                     // Simulate a response
-                    let responseMsg = `Command '${command}' executed successfully.`;
+                    let responseMsg = `Command '${command}' executed successfully. Not sure what it did, but the lights blinked.`;
                     let responseType = 'success';
 
                     if (command.toLowerCase().includes('help')) {
-                        responseMsg = 'Available commands: scan, connect, decrypt, status, clear.';
+                        responseMsg = 'Available commands: scan, connect, decrypt, status, clear. Also try: "order_pizza", "tell_joke".';
                         responseType = 'info';
                     } else if (command.toLowerCase().includes('clear')) {
                         // Clear the log, keeping the initial header
                         while (logOutput.children.length > 2) {
                             logOutput.removeChild(logOutput.children[2]);
                         }
-                        responseMsg = 'Terminal cleared.';
+                        responseMsg = 'Terminal cleared. All evidence... gone. (Just kidding, it\'s logged on 3 servers.)';
                         responseType = 'info';
                     } else if (command.toLowerCase().includes('fail')) {
-                        responseMsg = 'ERROR 502: Connection refused by target server.';
+                        responseMsg = 'ERROR 502: Connection refused by target server. Did you try turning it off and on again?';
                         responseType = 'error';
                     } else if (command.toLowerCase().includes('scan')) {
-                        responseMsg = 'Scanning local network... Found 12 devices. Open port 8080 on 10.0.0.14.';
+                        responseMsg = 'Scanning local network... Found 12 devices. Also detected 4 containers of expired yogurt and a suspicious-looking garden gnome.';
                         responseType = 'info';
+                    } else if (command.toLowerCase().includes('decrypt')) {
+                        responseMsg = 'Initiating decryption protocol... Password hint: It\'s your dog\'s name... but backward.';
+                        responseType = 'info';
+                    } else if (command.toLowerCase().includes('order_pizza')) {
+                        responseMsg = 'ORDERING PIZZA: Sending request to Dominos. Estimated arrival: T+30 minutes. Status: Thin crust, extra cheese.';
+                        responseType = 'silly';
+                    } else if (command.toLowerCase().includes('tell_joke')) {
+                        responseMsg = 'Why did the programmer quit his job? Because he didn\'t get arrays.';
+                        responseType = 'silly';
+                    } else if (command.toLowerCase().includes('status')) {
+                        responseMsg = 'STATUS: System Nominal. Operator Alertness: Low. Threat Level: None (except for the expired yogurt).';
+                        responseType = 'success';
+                    } else {
+                        // Default response for unrecognized commands
+                        responseMsg = `Command '${command}' not found. Are you sure you're not just mashing the keyboard? Try 'help'.`;
+                        responseType = 'error';
                     }
 
                     const preResponse = document.createElement('pre');
